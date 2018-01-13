@@ -13,6 +13,6 @@ class ItemViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun setUp(content: Content) {
-        message_tv.text = "${content.message} ${content.position}"
+        message_tv.text = "${content.message} ${adapterPosition}"
     }
 }

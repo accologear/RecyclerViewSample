@@ -20,6 +20,7 @@ class LoadMoreActivity : AppCompatActivity() {
     var listData = ArrayList<Content>()
     var mAdapter = DataAdapter()
     lateinit var linearLayoutManager: LinearLayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.load_more_act)
@@ -41,7 +42,7 @@ class LoadMoreActivity : AppCompatActivity() {
     }
 
     private fun initData(): List<Content> {
-        return (1..30).map { Content(it, "position") }
+        return (listData.size..30).map { Content(it, "position") }
     }
 
     val listener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
@@ -56,16 +57,13 @@ class LoadMoreActivity : AppCompatActivity() {
             lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
             if (!loading
                     && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                // End has been reached
-                // Do something
+
                 loading = true
                 mAdapter.addItem(Content(-1, ""))
 
                 Handler().postDelayed({
-                    var spare = ArrayList<Content>()
-                    (listData.size..20).mapTo(spare) { Content(it, "position") }
-                    mAdapter.removeItem(listData.size - 1)
-
+                    var spare = initData()
+                    mAdapter.removeItem(mAdapter.itemCount - 1)
                     mAdapter.addItem(spare)
                     loading = false
                 }, 1500)

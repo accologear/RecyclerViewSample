@@ -69,7 +69,7 @@ class LoadNewerActivity : AppCompatActivity() {
 
                     val v = recyclerView!!.getChildAt(0)
                     val top = if (v == null) 0 else v.top
-                    for (i in 1..20) {
+                    for (i in 1..30) {
                         spare.add(0, Content(i, "position"))
                     }
                     mAdapter.removeItem(0)
